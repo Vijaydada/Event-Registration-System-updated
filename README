@@ -1,0 +1,121 @@
+Event Registration System RestAPI Documentation
+Base URL:/api/*
+To RUN install PostGres SQL and create SCHEMA with given .SQL file
+Authentication:
+All endpoints require authentication using JWT (JSON Web Token). Include the JWT token in the Authorization header of each request.
+Endpoints:
+User Registration
+
+Endpoint: POST /users/register
+Description: Registers a new user in the system. with unique email
+Request Body:
+json
+Copy code
+{
+    "username":"String",
+    "email": "String",
+    "role" : "String",
+    "password":"String"
+}
+Response:
+Status Code: 200 OK
+Body:
+json later you can login and get Token for 2 hrs.
+Copy code
+{
+    "token": "JWT-Token"
+}
+User Login
+
+Endpoint: POST /users/login
+Description: Logs in an existing user and returns a JWT token. Password will store in hashed form
+Request Body:
+json
+Copy code
+{
+  "email": "string",
+  "password": "string"
+}
+Response:
+Status Code: 200 OK
+Body:
+json
+Copy code
+{
+  "token": "JWT_TOKEN"
+}
+Add Event
+
+Endpoint: POST /events
+Description: Adds a new event to the system. If your role is ADMIN
+Request Body:
+json
+Copy code
+{
+        "eventId": 5,
+        "name": "SPRINGBOOT+POSTGRESSQL",
+        "date": "2024-05-28",
+        "location": "Thinkify.com",
+        "userId": 6
+    }
+Response:
+Status Code: 200 OK
+Body:
+json
+Copy code
+{
+  "message": "Event added successfully"
+}
+Get All Events
+
+Endpoint: GET /events
+Description: Retrieves a list of all events in the system.
+Response:
+Status Code: 200 OK
+Body:
+json
+Copy code
+[
+    {
+        "eventId": 4,
+        "name": "PostgresSQL",
+        "date": "2024-05-28",
+        "location": "Thinkify.com",
+        "userId": 6
+    },
+  ...
+]
+Register for Event
+
+Endpoint: POST /api/registrations/{eventId}
+Description: Registers the authenticated user for a specific event.
+Request Parameters:
+eventId: The ID of the event to register for.
+Response:
+Status Code: 200 OK
+Body:
+json
+Copy code
+{
+  "message": "Registration successful"
+}
+Get User Registrations
+
+Endpoint: GET /api/registration/{userId}
+Description: Retrieves a list of events registered by the authenticated user.
+Request Parameters:
+userId: The ID of the authenticated user.
+Response:
+Status Code: 200 OK
+Body:
+json
+Copy code
+[
+  {
+    "event_id": "integer",
+    "event_name": "string",
+    "event_date": "YYYY-MM-DD",
+    "event_location": "string"
+  },
+  ...
+]
