@@ -70,7 +70,6 @@ public class EventResource {
         }
         int userId = (Integer) request.getAttribute("userId");
         eventService.removeEventWithRegistration(userId, eventId);
-        registrationService.removeRegistrationByEventId(eventId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
